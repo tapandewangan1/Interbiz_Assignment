@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.2/css/bootstrap.min.css" integrity="sha512-CpIKUSyh9QX2+zSdfGP+eWLx23C8Dj9/XmHjZY2uDtfkdLGo0uY12jgcnkX9vXOgYajEKb/jiw67EYm+kBf+6g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+        <div class="card signup-card mt-5 mb-5 m-auto">
+            <div class="card-header">
+              <h3 class="card-title">Sign up</h3>
+           </div>
+            <div class="card-body">
+              <form acceptCharset="UTF-8" role="form">
+                      <fieldset>
+                        <div class="form-group mb-3">
+                            <input type="text" class="form-control" placeholder="Full Name" name="fullname" required  onchange="checkWarning('name')" id="name" value=''/>
+                          </div>
+                  <div class="form-group mb-3">
+                  <input type="text" class="form-control" placeholder="Username" name="username" required  onchange="checkWarning('userName')" id="userName" value=''/>
+                </div>
+                <div class="form-group mb-3">
+                    <input type="text" class="form-control" placeholder="Email" name="email" required onchange="checkWarning('email')" id="email" value=''/>
+                  </div>
+                <div class="form-group mb-3">
+                <input type="password" id="password" class="form-control" placeholder="Password" required onchange="checkWarning('password')" name="password" value=''/>
+                </div>
+                <input type="button" onclick="registerUser(event)" class="btn btn-lg btn-success btn-block "  value="Register" />			    		
+              </fieldset>
+                </form>
+            </div>
+        </div>
+        <div id="registeredUserTable" class="m-5">
+    </div>
+   <script>
+    let registeredUsers = []; // variable to store registered user
+    localStorage.removeItem("users"); // clear local storage on HTML load
+    createRegisteredUserTable(); // create table for registered users
+//create table of registerd user after getting data from local storage
+    function createRegisteredUserTable(){
+        document.getElementById("registeredUserTable").innerHTML = "";
+  let table = document.createElement("table"),
+    tr,
+    td,
+    row,
+    cell,
+    th,
+    tableHeaders = ["S No.", "Name", "UserName", "Email", "password"], locallySavedRegisteredUser = [...(JSON.parse(localStorage.getItem("users"))|| [])];
+  tr = document.createElement("tr");
+  for (let i = 0; i < tableHeaders.length; i++) {
+    th = document.createElement("th");
+    th.innerHTML = tableHeaders[i];
+    tr.appendChild(th);
+  }
+  table.appendChild(tr);
+  if (locallySavedRegisteredUser.length > 0) {
+    for(let i = 0; i< locallySavedRegisteredUser.length; i++){
+        tr = document.createElement("tr");
+      let {name, userName, email, password} = locallySavedRegisteredUser[i];
+      cellValues = [i+1, name, userName, email, password];
+      cellValues.forEach((val, index) => {
+        td = document.createElement("td");
+        tr.appendChild(td);
+        if (index === cellValues.length -1) {
+          td.innerHTML = `<span id= "pass-${i}">${password.toString().replaceAll(/./g, '*')}</span>`;
+        } else {
+          td.innerHTML = val;
+        }
+    });
+    table.appendChild(tr);
+}} else {
+    tr = document.createElement("tr");
+    tr.className += "noRecordTr";
+    td = document.createElement("td");
+    td.colSpan = 5;
+    td.className += "noRecordTd";
+    tr.appendChild(td);
+    td.innerHTML = "No Users registered";
+    table.appendChild(tr);
+}
+  document.getElementById("registeredUserTable").appendChild(table);
+    }
+    //register a user on click of sign up button in form
+    function registerUser(event){
+        event.preventDefault();
+        let hasError = false;
+        let userDetail = {name: document.getElementById("name").value, userName: document.getElementById("userName").value, email: document.getElementById("email").value, password: document.getElementById("password").value};
+        if(userDetail.name === ""){
+            addWarning("name");
+            hasError = true;
+        }
+        if(userDetail.userName === ""){
+            addWarning("userName");
+            hasError = true;
+        }
+        if(userDetail.email === ""){
+            addWarning("email");
+            hasError = true;
+        }
+        if(userDetail.password === ""){
+            addWarning("password");
+            hasError = true;
+        }
+        if(hasError){
+            return;
+        } else {
+        registeredUsers.push(userDetail);
+        localStorage.setItem("users",JSON.stringify(registeredUsers));
+        console.log(`User Details saved to Local storage \n ${JSON.parse(localStorage.getItem("users"))}`);
+        createRegisteredUserTable();
+        clearForm();
+        }
+        
+    }
+    //clear form after saving user in local storage
+    function clearForm(){
+        document.getElementById("name").value = '';
+        document.getElementById("userName").value = '';
+        document.getElementById("email").value = '';
+        document.getElementById("password").value = '';  
+    }
+    //check if form field has value otherwise show warning
+    function checkWarning(id){
+        if(document.getElementById(`${id}`).value === ""){
+            addWarning(id);
+        } else {
+            removeWarning(id);
+        }
+    }
+    // add warning to form field
+    function addWarning(id){
+        document.getElementById(`${id}`).classList += " border-warning-color";
+    
+    }
+    // remove warning of form field
+    function removeWarning(id){
+        const div =  document.querySelector(`#${id}`);
+        div.classList.remove("border-warning-color");
+    
+    }
+   </script> 
+    
+</body>
+</html>

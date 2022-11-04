@@ -1,0 +1,96 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+}
+body {
+    background: url('https://media.istockphoto.com/photos/alberta-wilderness-near-banff-picture-id583809524?b=1&k=20&m=583809524&s=612x612&w=0&h=ZH0lrJI2ypyxvWQRtpwYcBFZoLLI4XdHWX5xP3JKkKQ=') no-repeat;
+    background-size: cover;
+    color: rgb(14, 1, 1);
+
+}
+.SignUp-Form {
+    position: absolute;
+    top: 40%;
+    left: 15%;
+    transform: translate(-50%,-50%);
+    width: 350px;
+}
+.SignUp-Form h1 {
+    font-size: 40px;
+    text-align: centre;
+    text-transform: uppercase;
+    margin: 40px 0;
+}
+.SignUp-Form p {
+    font-size: 20px; 
+    margin: 15px 0;
+}
+.SignUp-Form input {
+    font-size: 16px; 
+    color: blueviolet;
+    padding: 15px 10px;
+    width: 100%;
+    border: 0;
+    border-radius: 5px;
+    outline: none;
+
+}
+.SignUp-Form button {
+    font-size: 18px; 
+    font-weight: bold;
+    margin: 20px 0;
+    padding: 10px 15px;
+    width: 50%;
+    border: 0;
+    border-radius: 5px;
+    background-color: rgb(17, 202, 187);
+    outline: none;
+    
+}
+.signup-card{
+    width: 350px;
+}
+#registeredUserTable table {
+    width: 100%;
+    margin-bottom: 1rem;
+    background-color: #f8f9fa;
+    border-collapse: collapse;
+    
+    
+    }
+    #registeredUserTable table th {
+     vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+    text-align: center;
+    }
+    #registeredUserTable table td {
+     padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+    text-align: center;
+    }
+    .noRecordTd {
+     border-bottom: 1px solid #dee2e6;
+    }
+    #registeredUserTable {
+     max-height: 300px;
+     overflow-y: auto;
+    }
+    #registeredUserTable table tr:nth-child(1) {
+     position: sticky;
+     top: 0;
+     background-color: #ffffff;
+    }
+    tr:hover {background-color: #dbd3d3 !important;}
+    tr:nth-child(even) {background-color: #efefef;}
+    tr td:last-child span {cursor: pointer;}
+    .display-flex {
+        display: flex;
+    }
+    .border-warning-color{
+        border-color: red !important;
+    }
+    .showPassword{
+        margin-right: 5px;
+    }
